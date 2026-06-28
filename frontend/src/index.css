@@ -24,6 +24,7 @@ body {
 .text-dove   { color: #676B6C; }
 .text-darktext { color: #212023; }
 .bg-black-base { background: #262626; }
+.bg-casper { background : #AABBC5 }
 
 .glass-nav {
   backdrop-filter: blur(24px);
@@ -163,3 +164,25 @@ body {
 table.dataTable tbody tr { background: transparent !important; }
 table.dataTable tbody tr:hover td { background: rgba(170,187,197,0.04) !important; }
 table.dataTable thead th { border-bottom: 1px solid rgba(170,187,197,0.15) !important; }
+
+
+/* hero banner Launch it for free button */
+/* CTA Button sweep effect */
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(82.3deg, #C8D8E0 10.8%, #DDEAF0 94.3%);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.475s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 0;
+}
+
+.cta-btn:hover::before {
+  transform: scaleX(1);
+}
