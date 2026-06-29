@@ -16,6 +16,7 @@ from categories import router as categoriesRouter
 from leads      import router as leadsRouter
 from features   import router as featuresRouter
 from howItWorks   import router as howItWorksRouter
+from faqs           import router as faqsRouter
 from database   import executeQuery
 import requests
 import openpyxl
@@ -43,6 +44,7 @@ app.include_router(categoriesRouter, prefix="/api/v1/categories", tags=["Categor
 app.include_router(leadsRouter,      prefix="/api/v1/leads",      tags=["Leads"])
 app.include_router(featuresRouter,   prefix="/api/v1/features",   tags=["Features"])
 app.include_router(howItWorksRouter, prefix="/api/v1/how-it-works", tags=["HowItWorks"])
+app.include_router(faqsRouter,       prefix="/api/v1/faqs",        tags=["FAQs"])
 
 OVERPASS_URL  = "https://overpass-api.de/api/interpreter"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"

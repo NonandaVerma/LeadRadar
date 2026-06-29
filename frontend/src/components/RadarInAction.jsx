@@ -1,4 +1,3 @@
-import React from "react";
 import { ContainerScroll } from "./ui/container-scroll-animation";
 import { MdRadar } from 'react-icons/md';
 import { MdWifiOff } from 'react-icons/md'     
@@ -41,7 +40,7 @@ function DashboardMock() {
           </div>
           <div className="w-auto">
             <span className="flex gap-1.5  text-center text-xs font-semibold px-3 py-2 rounded-full bg-red-500 text-white">
-              <MdWifiOff class="text-sm"/> Missing Website </span>
+              <MdWifiOff className="text-sm"/> Missing Website </span>
           </div>
           <div className="w-1/3 text-right">
             <button className="text-xs font-semibold px-4 py-1.5 rounded-lg transition-all bg-casper text-[#0e0e10] hover:bg-[#8FAAB5]"> View Intel </button>
@@ -56,7 +55,7 @@ function DashboardMock() {
           </div>
           <div className="w-auto">
             <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-full  bg-casper text-[#0e0e10]">
-              <MdSearchOff class="text-sm"/> No SEO Footprint </span>
+              <MdSearchOff className="text-sm"/> No SEO Footprint </span>
           </div>
           <div className="w-1/3 text-right">
             <button className="text-xs font-semibold px-4 py-1.5 rounded-lg transition-all  bg-casper text-[#0e0e10] hover:bg-[#8FAAB5]"> View Intel </button>
@@ -71,7 +70,7 @@ function DashboardMock() {
           </div>
           <div className="w-auto">
             <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-full bg-amber-400 text-[#0e0e10]">
-              <MdSignalWifiStatusbarNotConnected  class="text-sm"/> Weak Social Only </span>
+              <MdSignalWifiStatusbarNotConnected  className="text-sm"/> Weak Social Only </span>
           </div>
           <div className="w-1/3 text-right">
             <button className="text-xs font-semibold px-4 py-1.5 rounded-lg transition-all  bg-casper text-[#0e0e10] hover:bg-[#8FAAB5]"> View Intel </button>

@@ -186,3 +186,13 @@ table.dataTable thead th { border-bottom: 1px solid rgba(170,187,197,0.15) !impo
 .cta-btn:hover::before {
   transform: scaleX(1);
 }
+
+/* custom card - who is it for page */
+
+/* .cardShine{
+  border-radius : 20px ;
+} */
+@keyframes cardShine {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

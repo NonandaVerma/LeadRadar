@@ -60,7 +60,7 @@ function useCounter(target, duration = 1800, started = false) {
   return count
 }
 
-function MetricItem({ Icon, number, suffix, prefix, label, started, index }) {
+function MetricItem({ Icon, number, suffix, label, started, index }) {
   const count = useCounter(number, 1600 + index * 120, started)
 
   return (

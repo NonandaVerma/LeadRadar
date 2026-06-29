@@ -28,8 +28,8 @@ def get_how_it_works():
             ORDER BY display_order ASC
         """)
 
-        cols  = [desc[0] for desc in cursor.description]
-        steps = [dict(zip(cols, row)) for row in cursor.fetchall()]
+        rows  = cursor.fetchall()  
+        steps = list(rows)
 
         return {
             "status": "success",

@@ -8,6 +8,7 @@ import GlobalReach from '../components/GlobalReach'
 import Footer     from '../components/Footer'
 import WhoItsFor from '../components/WhoItsFor'
 import FeatureShowcase from '../components/FeatureShowcase'
+import FAQ from '../components/FAQ'
 
 
 export default function Landing() {
@@ -22,6 +23,7 @@ export default function Landing() {
       <MetricsStrip />
       <HowItWorks />
       <WhoItsFor />
+      <FAQ />
       <Footer />
     </div>
   )

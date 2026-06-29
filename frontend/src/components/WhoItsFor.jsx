@@ -3,32 +3,28 @@ import { motion, useInView } from 'framer-motion'
 import axios from 'axios'
 import { FiMap, FiTrendingUp, FiUser, FiLayers } from 'react-icons/fi'
 
-/* ── icon_key → component ── */
 const ICON_MAP = { FiMap, FiTrendingUp, FiUser, FiLayers }
 
-/* ── Skeleton ── */
 function Skeleton() {
   return (
     <div className="flex gap-6 justify-center">
       {[1,2,3,4].map(i => (
-        <div key={i} className="skeleton rounded-2xl flex-shrink-0" style={{ width: '300px', height: '280px' }} />
+        <div key={i} className="skeleton rounded-2xl shrink-0"  />
       ))}
     </div>
   )
 }
 
-/* ── Single card ── */
+// single card
 function Card({ step, index, active, onClick }) {
   const { icon_key, tag, title, description } = step
-  const Icon     = ICON_MAP[icon_key] || FiUser
+  const Icon  = ICON_MAP[icon_key] || FiUser
   const isActive = index === active
 
   return (
-    <div
-      onClick={onClick}
-      className="relative flex-shrink-0 rounded-2xl p-7 flex flex-col gap-4 cursor-pointer select-none overflow-hidden"
+    <div onClick={onClick} className="relative shrink-0 rounded-2xl p-7 flex flex-col gap-4 cursor-pointer select-none overflow-hidden"
       style={{
-        width: '320px',
+        width: '350px',
         background:  isActive ? '#AABBC5' : 'rgba(170,187,197,0.04)',
         border:      isActive ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(170,187,197,0.10)',
         boxShadow:   isActive ? '0 12px 40px rgba(170,187,197,0.25), inset 0 1px 0 rgba(255,255,255,0.3)' : 'none',
@@ -38,55 +34,36 @@ function Card({ step, index, active, onClick }) {
       }}
     >
       {/* Shine sweep on active */}
-      {isActive && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
+      { isActive && (
+        <div className="absolute inset-0 pointer-events-none" style={{
             background: 'linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 60%)',
             animation: 'cardShine 3s ease-in-out infinite',
           }}
         />
       )}
 
-      {/* Top row — icon + tag (no wrapper box on icon) */}
+      {/* Top row — icon + tag */}
       <div className="relative z-10 flex items-center justify-between">
-        <Icon
-          size={24}
-          color={isActive ? '#212023' : '#676B6C'}
-          style={{ transition: 'color 0.4s ease' }}
-        />
-        <span
-          className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
+        <Icon size={24} color={isActive ? '#212023' : '#676B6C'} style={{ transition: 'color 0.4s ease' }} />
+        <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
           style={{
             background: isActive ? 'rgba(33,32,35,0.15)' : 'rgba(170,187,197,0.10)',
             color:      isActive ? '#212023' : '#676B6C',
             border:     isActive ? '1px solid rgba(33,32,35,0.12)' : '1px solid rgba(170,187,197,0.12)',
             transition: 'all 0.4s ease',
           }}
-        >
-          {tag}
-        </span>
+        > {tag} </span>
       </div>
 
-      {/* Title */}
-      <h3
-        className="relative z-10 font-syne text-xl font-black leading-snug"
-        style={{ color: isActive ? '#212023' : '#676B6C', transition: 'color 0.4s ease' }}
-      >
+      <h3 className="relative z-10 font-syne text-xl font-black leading-snug" style={{ color: isActive ? '#212023' : '#676B6C', transition: 'color 0.4s ease' }}>
         {title}
       </h3>
-
-      {/* Divider */}
-      <div
-        className="relative z-10 h-px w-full"
-        style={{ background: isActive ? 'rgba(33,32,35,0.15)' : 'rgba(170,187,197,0.08)' }}
-      />
+      
+      {/* Description */}
+      <div className="relative z-10 h-px w-full" style={{ background: isActive ? 'rgba(33,32,35,0.15)' : 'rgba(170,187,197,0.08)' }} />
 
       {/* Description */}
-      <p
-        className="relative z-10 text-sm leading-relaxed"
-        style={{ color: isActive ? 'rgba(33,32,35,0.75)' : '#676B6C', transition: 'color 0.4s ease' }}
-      >
+      <p className="relative z-10 text-sm leading-relaxed" style={{ color: isActive ? 'rgba(33,32,35,0.75)' : '#676B6C', transition: 'color 0.4s ease' }} >
         {description}
       </p>
 
@@ -94,28 +71,17 @@ function Card({ step, index, active, onClick }) {
       <div className="relative z-10 mt-auto">
         <div className="h-0.5 rounded-full" style={{ background: isActive ? 'rgba(33,32,35,0.15)' : 'rgba(170,187,197,0.08)' }}>
           {isActive && (
-            <motion.div
-              className="h-full rounded-full"
-              style={{ background: '#212023' }}
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 4, ease: 'linear' }}
+            <motion.div className="h-full rounded-full bg-[#212023]" initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: 4, ease: 'linear' }}
             />
           )}
         </div>
       </div>
 
-      <style>{`
-        @keyframes cardShine {
-          0%   { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-      `}</style>
     </div>
   )
 }
 
-/* ── Main export ── */
+
 export default function WhoItsFor() {
   const ref      = useRef(null)
   const trackRef = useRef(null)
@@ -125,14 +91,17 @@ export default function WhoItsFor() {
   const [loading,setLoading]= useState(true)
   const [active, setActive] = useState(0)
 
-  /* Fetch from API */
   useEffect(() => {
     axios.get('/api/v1/how-it-works')
-      .then(res => { setSteps(res.data.data); setLoading(false) })
+      .then(res => { 
+        setSteps(res.data.data);
+        console.log(res.data) 
+        setLoading(false) 
+      })
       .catch(() => setLoading(false))
   }, [])
 
-  /* Auto-advance every 4s */
+  // auto advance slider 4sec
   useEffect(() => {
     if (steps.length === 0) return
     const timer = setInterval(() => {
@@ -141,7 +110,7 @@ export default function WhoItsFor() {
     return () => clearInterval(timer)
   }, [steps.length, active])
 
-  /* Center active card in track */
+  // center active card in track
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
@@ -160,17 +129,10 @@ export default function WhoItsFor() {
       <div className="max-w-7xl mx-auto flex flex-col gap-14">
 
         {/* Header */}
-        <motion.div
-          ref={ref}
-          className="flex flex-col gap-4 max-w-2xl"
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <span className="badge badge-casper w-fit">Who It's For</span>
+        <motion.div ref={ref} className="flex flex-col gap-4 max-w-2xl" initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}>
+          <span className="badge-casper w-fit px-5 py-2 rounded-full">Who It's For</span>
           <h2 className="font-syne text-4xl md:text-5xl font-black leading-tight tracking-tight text-white">
-            Engineered for{' '}
-            <span className="text-casper">high-performing teams.</span>
+            Engineered for <span className="text-casper">high-performing teams.</span>
           </h2>
           <p className="text-base leading-relaxed text-dove max-w-xl">
             LeadRadar adapts to your specific growth model, delivering the exact intelligence
@@ -186,13 +148,13 @@ export default function WhoItsFor() {
             style={{ scrollbarWidth: 'none' }}
           >
             {/* Left spacer to center first card */}
-            <div className="flex-shrink-0" style={{ width: 'calc(50% - 160px)' }} />
+            <div className="shrink-0" style={{ width: 'calc(50% - 160px)' }} />
 
             {loading
               ? <Skeleton />
               : steps.map((step, i) => (
                   <Card
-                    key={step.uuid}
+                    key={i}
                     step={step}
                     index={i}
                     active={active}
