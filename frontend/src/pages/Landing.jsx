@@ -9,6 +9,7 @@ import Footer     from '../components/Footer'
 import WhoItsFor from '../components/WhoItsFor'
 import FeatureShowcase from '../components/FeatureShowcase'
 import FAQ from '../components/FAQ'
+import Pricing from '../components/Pricing'
 
 
 export default function Landing() {
@@ -23,6 +24,7 @@ export default function Landing() {
       <MetricsStrip />
       <HowItWorks />
       <WhoItsFor />
+      <Pricing />
       <FAQ />
       <Footer />
     </div>

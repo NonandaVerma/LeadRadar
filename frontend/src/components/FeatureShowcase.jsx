@@ -3,7 +3,34 @@ import { motion, AnimatePresence } from 'framer-motion'
 import axios from 'axios'
 import { FiRadio, FiFileText, FiUser, FiCpu, FiMail, FiTrello, FiBarChart2, FiStar, FiPhone } from 'react-icons/fi'
 
+/* ── Local image imports ── */
+import deepScanMarket    from '../assets/deepScanMarket.avif'
+import automateAuditReports from '../assets/automateAuditReports.avif'
+import decisionMaker     from '../assets/decisionMaker.avif'
+import aiDrivenPitch     from '../assets/aiDrivenPitch.jpg'
+import smartOutreach     from '../assets/smartOutreach.avif'
+import kanbanPipeline    from '../assets/kanbanPipeline.avif'
+import matrixAnalysis    from '../assets/matrixAnalysis.avif'
+import aiSentimentTracking from '../assets/aiSentimentTracking.avif'
+import dynamicCallScripting from '../assets/dynamicCallScripting.avif'
+
+/* ── filename (as stored in DB) → imported asset ── */
+const IMAGE_MAP = {
+  'deepScanMarket.avif':       deepScanMarket,
+  'automateAuditReports.avif': automateAuditReports,
+  'decisionMaker.avif':        decisionMaker,
+  'aiDrivenPitch.jpg':         aiDrivenPitch,
+  'smartOutreach.avif':        smartOutreach,
+  'kanbanPipeline.avif':       kanbanPipeline,
+  'matrixAnalysis.avif':       matrixAnalysis,
+  'aiSentimentTracking.avif':  aiSentimentTracking,
+  'dynamicCallScripting.avif': dynamicCallScripting,
+}
+
 const ICON_MAP = { FiRadio, FiFileText, FiUser, FiCpu, FiMail, FiTrello, FiBarChart2, FiStar, FiPhone }
+
+/* ── Resolve image: DB stores filename, map to imported asset ── */
+const getImage = (filename) => IMAGE_MAP[filename] || deepScanMarket // fallback
 
 function ImageStack({ features, active }) {
   const total = features.length
@@ -37,7 +64,7 @@ function ImageStack({ features, active }) {
             transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <img
-              src={features[idx].image_url}
+              src={getImage(features[idx].image_url)}
               alt={features[idx].title}
               className="w-full h-full object-cover"
               loading="lazy"
@@ -60,7 +87,7 @@ function ImageStack({ features, active }) {
 
 function Skeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-120">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-[480px]">
       <div className="h-[420px] rounded-2xl skeleton" />
       <div className="flex flex-col gap-5">
         <div className="skeleton h-12 w-12 rounded-xl" />
@@ -81,12 +108,10 @@ function FeatureContent({ features, active, goTo, prev, next }) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-[480px]">
-      {/* Left — image stack */}
       <div className="relative h-[420px] w-full" style={{ perspective: '1000px' }}>
         <ImageStack features={features} active={active} />
       </div>
 
-      {/* Right — content */}
       <div className="flex flex-col gap-6">
         <AnimatePresence mode="wait">
           <motion.div
@@ -117,7 +142,6 @@ function FeatureContent({ features, active, goTo, prev, next }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Dots */}
         <div className="flex items-center gap-2 flex-wrap mt-2">
           {features.map((_, i) => (
             <button
@@ -133,7 +157,6 @@ function FeatureContent({ features, active, goTo, prev, next }) {
           ))}
         </div>
 
-        {/* Prev / Next */}
         <div className="flex gap-3">
           {[{ label: '←', fn: prev }, { label: '→', fn: next }].map(({ label, fn }) => (
             <button
@@ -195,7 +218,6 @@ export default function FeatureShowcase() {
         </div>
 
         {loading && <Skeleton />}
-
         {error && <p className="text-center text-dove text-sm">{error}</p>}
 
         {!loading && !error && features.length > 0 && (

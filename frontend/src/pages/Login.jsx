@@ -7,7 +7,7 @@ import axios from 'axios'
 import { setCredentials } from '../store/authSlice'
 import { swal } from '../utils/sweetalert'
 import logo from '../assets/logo.png'
-import panelBg from '../assets/panel.avif'
+import panelBg from '../assets/loginpanel.jpg'
 
 // ── Left panel ─────────────────────────────────────────────────────────────────
 function LeftPanel() {

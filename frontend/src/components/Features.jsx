@@ -3,7 +3,7 @@ import { MdOutlineRadar } from 'react-icons/md'
 import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { RiContactsLine } from 'react-icons/ri'
 import { TbTableExport } from 'react-icons/tb'
-import { FiRadio, FiFileText, FiUser, FiCpu, FiMail, FiTrello, FiBarChart2, FiStar, FiPhone, FiCheckCircle } from 'react-icons/fi'
+import {  FiCheckCircle } from 'react-icons/fi'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -229,7 +229,7 @@ const BENTO_PANELS = [
 
 export default function Features() {
   return (
-    <section className="w-full py-24 px-4 md:px-10" style={{ background: '#0e0e10' }}>
+    <section id="features" className="w-full py-24 px-4 md:px-10" style={{ background: '#0e0e10' }}>
       <div className="max-w-7xl mx-auto flex flex-col gap-20">
 
         {/* ── Section Header ── */}

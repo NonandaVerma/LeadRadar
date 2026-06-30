@@ -114,7 +114,7 @@ export default function WhoItsFor() {
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
-    const cardW  = 320
+    const cardW  = 380
     const gap    = 24
     const trackW = track.clientWidth
     const offset = active * (cardW + gap) - trackW / 2 + cardW / 2
@@ -125,7 +125,7 @@ export default function WhoItsFor() {
   const next = () => setActive(p => (p + 1) % steps.length)
 
   return (
-    <section className="py-24 px-4 md:px-10" style={{ background: '#0e0e10' }}>
+    <section id="who-its-for" className="py-24 px-4 md:px-10" style={{ background: '#0e0e10' }}>
       <div className="max-w-7xl mx-auto flex flex-col gap-14">
 
         {/* Header */}

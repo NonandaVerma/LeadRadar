@@ -7,18 +7,31 @@ import { logout, selectIsLoggedIn, selectCurrentUser } from '../store/authSlice'
 import { swal } from '../utils/sweetalert'
 import logo from '../assets/logo.png'
 
+/* ── Updated nav links matching all landing page sections ── */
 const navLinks = [
   { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Search',       href: '#search'       },
-  { label: 'Results',      href: '#results'      },
+  { label: 'Features',     href: '#features'     },
+  { label: 'Who It\'s For', href: '#who-its-for'  },
+  { label: 'Pricing',      href: '#pricing'       },
+  { label: 'FAQ',          href: '#faq'           },
 ]
+
+/* ── Smooth scroll helper — accounts for fixed navbar height ── */
+function scrollToSection(href, closeMenu) {
+  const el = document.querySelector(href)
+  if (el) {
+    const offset = 100 // navbar height + breathing room
+    const top = el.getBoundingClientRect().top + window.scrollY - offset
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+  if (closeMenu) closeMenu()
+}
 
 // ── Standalone component — desktop auth buttons ────────────────────────────────
 function DesktopAuthButtons({ isLoggedIn, user, onLogout }) {
   if (isLoggedIn) {
     return (
       <div className="flex items-center gap-3 shrink-0">
-        {/* User pill */}
         <div
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
           style={{ background: 'rgba(170,187,197,0.08)', border: '1px solid rgba(170,187,197,0.15)' }}
@@ -29,7 +42,6 @@ function DesktopAuthButtons({ isLoggedIn, user, onLogout }) {
           </span>
         </div>
 
-        {/* Dashboard */}
         <motion.div
           whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.95 }}
           transition={{ type: 'spring', stiffness: 400, damping: 22 }}
@@ -43,7 +55,6 @@ function DesktopAuthButtons({ isLoggedIn, user, onLogout }) {
           </Link>
         </motion.div>
 
-        {/* Logout */}
         <motion.button
           onClick={onLogout}
           className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] font-medium cursor-pointer text-dove"
@@ -60,7 +71,6 @@ function DesktopAuthButtons({ isLoggedIn, user, onLogout }) {
 
   return (
     <div className="flex items-center gap-2 shrink-0">
-      {/* Login */}
       <motion.div
         whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 400, damping: 22 }}
@@ -74,7 +84,6 @@ function DesktopAuthButtons({ isLoggedIn, user, onLogout }) {
         </Link>
       </motion.div>
 
-      {/* Sign Up */}
       <motion.div
         whileHover={{ scale: 1.05, y: -1 }} whileTap={{ scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 400, damping: 22 }}
@@ -99,7 +108,6 @@ function MobileAuthSection({ isLoggedIn, user, onLogout, onClose }) {
         className="flex flex-col gap-2 px-4 pt-2 pb-10"
         style={{ borderTop: '1px solid rgba(170,187,197,0.1)' }}
       >
-        {/* User pill */}
         <div
           className="flex items-center gap-2 px-4 py-3 rounded-xl mb-1"
           style={{ background: 'rgba(170,187,197,0.06)' }}
@@ -108,7 +116,6 @@ function MobileAuthSection({ isLoggedIn, user, onLogout, onClose }) {
           <span className="text-sm" style={{ color: 'rgba(255,255,255,0.8)' }}>{user?.fullName}</span>
         </div>
 
-        {/* Dashboard */}
         <Link
           to="/dashboard"
           onClick={onClose}
@@ -118,7 +125,6 @@ function MobileAuthSection({ isLoggedIn, user, onLogout, onClose }) {
           <FiGrid size={15} /> Go to Dashboard
         </Link>
 
-        {/* Logout */}
         <button
           onClick={onLogout}
           className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium text-dove cursor-pointer"
@@ -206,7 +212,7 @@ export default function Navbar() {
             </span>
           </motion.a>
 
-          {/* Nav links */}
+          {/* Nav links — now scroll to section instead of plain href jump */}
           <ul className="flex items-center gap-1 list-none m-0 p-0">
             {navLinks.map((link, i) => (
               <motion.li
@@ -214,20 +220,20 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.07, type: 'spring', stiffness: 300 }}
               >
-                <motion.a
-                  href={link.href}
-                  className="block px-4 py-2 rounded-xl text-[13.5px] font-medium no-underline text-white"
+                <motion.button
+                  onClick={() => scrollToSection(link.href)}
+                  className="block px-4 py-2 rounded-xl text-[13.5px] font-medium no-underline text-white cursor-pointer"
+                  style={{ background: 'transparent', border: 'none' }}
                   whileHover={{ y: -2, color: '#212023', background: '#AABBC5', boxShadow: '0 4px 14px rgba(170,187,197,0.25)' }}
                   whileTap={{ scale: 0.95, y: 0 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 22 }}
                 >
                   {link.label}
-                </motion.a>
+                </motion.button>
               </motion.li>
             ))}
           </ul>
 
-          {/* Auth buttons — passes props down, no hooks inside */}
           <DesktopAuthButtons
             isLoggedIn={isLoggedIn}
             user={user}
@@ -308,25 +314,24 @@ export default function Navbar() {
               </motion.button>
             </div>
 
-            {/* Nav links */}
+            {/* Nav links — scroll to section + close menu */}
             <nav className="flex-1 flex flex-col gap-1 p-4">
               {navLinks.map((link, i) => (
-                <motion.a
+                <motion.button
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center px-4 py-3.5 rounded-xl text-[15px] font-medium text-white no-underline"
+                  onClick={() => scrollToSection(link.href, () => setMobileOpen(false))}
+                  className="flex items-center px-4 py-3.5 rounded-xl text-[15px] font-medium text-white no-underline cursor-pointer text-left"
+                  style={{ background: 'transparent', border: 'none' }}
                   initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.08 + i * 0.07, type: 'spring', stiffness: 300, damping: 28 }}
                   whileHover={{ x: 5, color: '#212023', background: '#AABBC5' }}
                   whileTap={{ scale: 0.97 }}
                 >
                   {link.label}
-                </motion.a>
+                </motion.button>
               ))}
             </nav>
 
-            {/* Auth section — passes props, no hooks inside */}
             <MobileAuthSection
               isLoggedIn={isLoggedIn}
               user={user}
